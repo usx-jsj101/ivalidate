@@ -1,0 +1,2 @@
+	window.Ivalidate=ivalidate;
+})(window);
