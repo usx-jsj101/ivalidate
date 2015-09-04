@@ -11,12 +11,13 @@ var utils = (function() {
         el.removeEventListener(type, fn, !!capture);
     };
 
-    me.getByAttr = function(el,attr,message) {
+    me.changeTip = function(el,attr,message) {
     	var re;
-    	eval('re = /(<[a-zA-Z]+ for="' + attr + '">)([\\s\\S]*?)(<\\/[a-zA-Z]+>)/;'); 
-        console.log(el.innerHTML=el.innerHTML.replace(re,function(m,p1,p2,p3){
+    	eval('re = /(<[^>]+for=["\\\']' + attr + '["\\\'][^>]*>)([^>]*?)(<\\/[^>]+>)/;'); 
+        el.innerHTML=el.innerHTML.replace(re,function(m,p1,p2,p3){
         	return p1+message+p3;
-        }));
+        });
+
     }
 
     return me;
