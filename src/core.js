@@ -14,12 +14,21 @@ var ivalidate = (function() {
 
     function init(target) {
         var list = target.getElementsByTagName('input');
+        addTargetId(list,target);
         for (var i = 0; i < list.length; i++) {
             (function(input, form) {
                 persetReg(input, form);
             })(list[i], target)
         };
     };
+
+    function addTargetId(list,target){
+      for (var i = 0; i < list.length; i++) {
+          (function(input, form) {
+            utils.addTargetId(input, form);
+          })(list[i], target)
+      };
+    }
 
     function persetReg(ipt, form) {
         for (var prop in reg) {
@@ -49,7 +58,6 @@ var ivalidate = (function() {
             }
         }
         utils.changeTip(form, prop, message);
-        init(form);
     }
 
     return {

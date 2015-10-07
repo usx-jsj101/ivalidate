@@ -12,12 +12,13 @@ var utils = (function() {
     };
 
     me.changeTip = function(el,attr,message) {
+      var res=document.getElementById("it-"+attr);
+      res.innerHTML=message;
+    }
+    me.addTargetId = function(target,el) {
     	var re;
-    	eval('re = /(<[^>]+for=["\\\']' + attr + '["\\\'][^>]*>)([^>]*?)(<\\/[^>]+>)/;'); 
-        el.innerHTML=el.innerHTML.replace(re,function(m,p1,p2,p3){
-        	return p1+message+p3;
-        });
-
+      eval('re = /(<[^>]+for=["\\\']' + target.id + '["\\\'][^>]*)(>)([^>]*?)(<\\/[^>]+>)/;');
+        el.innerHTML=el.innerHTML.replace(re,"$1 id = 'it-"+target.id+"'$2$3$4");
     }
 
     return me;
