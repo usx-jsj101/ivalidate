@@ -6,7 +6,8 @@
 	<script type="text/javascript" src="../dist/ivalidate.js"></script>
 	<script>
 		window.onload=function(){
-			Ivalidate.begin(document.getElementById("form"));
+			var iv=new Ivalidate(document.getElementById("form"));
+			iv.init();
 		}
 	</script>
 </head>
