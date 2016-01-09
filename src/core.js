@@ -1,4 +1,12 @@
 var reg = {
+    require: {
+        reg: /[\w\W]+/,
+        message: "内容不能为空"
+    },
+    digit: {
+        reg: /\d*/,
+        message: "请输入数字"
+    },
     phone: {
         reg: /\d{11}/,
         message: "请输入正确手机号码"
@@ -7,49 +15,65 @@ var reg = {
         reg: /[a-zA-Z0-9_]+@[a-zA-Z0-9]+\.[a-zA-Z]+/,
         message: "请输入正确的邮箱地址"
     }
-}
+};
 
-var ivalidate=function(target){
-  this.target=target;
-}
 
-ivalidate.prototype={
-  init:function(){
-    var list = this.target.getElementsByTagName('input');
-    addTargetId(list,this.target);
-    for (var i = 0; i < list.length; i++) {
-        (function(input, form) {
-            persetReg(input, form);
-        })(list[i], this.target)
-    };
-  }
-}
+var ivalidate = function(target) {
+    this.target = target;
+};
 
-function addTargetId(list,target){
-  for (var i = 0; i < list.length; i++) {
-      (function(input, form) {
-        utils.addTargetId(input, form);
-      })(list[i], target)
-  };
-}
+ivalidate.prototype = {
 
-function persetReg(ipt, form) {
-    for (var prop in reg) {
-        if (reg.hasOwnProperty(prop)) {
-            var attr = ipt.getAttribute(prop);
-            if (attr != null) {
-                (function(object, prams, attribute, input, form) {
-                    utils.addEvent(input, "change", function() {
-                        checkInput(object, prams, attribute, input, form);
-                    })
-                })(reg, prop, attr, ipt, form)
-            }
-        }
+    init: function() {
+
+        var list = this.target.querySelectorAll('[iv]');
+        //addTargetId(list, this.target);
+
+        for (var i = 0; i < list.length; i++) {
+
+        
+            (function(input, form) {
+
+                addValidateEvent(input, form);
+
+            })(list[i], this.target)
+        };
     }
 }
 
-function checkInput(reg, prop, attr, ipt, form) {
+function addTargetId(list, target) {
+
+    for (var i = 0; i < list.length; i++) {
+
+        (function(input, form) {
+
+            utils.addTargetId(input, form);
+
+        })(list[i], target)
+
+    };
+}
+
+function addValidateEvent(ipt, form) {
+
+
+    var validateItems = ipt.getAttribute("iv").split(" ");
+
+
     console.log(ipt);
+    utils.addEvent(ipt, "change", function() {
+
+        console.log("change");
+        checkInput(validateItems[0], ipt, form, "");
+
+    })
+
+}
+
+
+
+function checkInput(prop, ipt, form, attr) {
+
     var reg_express = reg[prop].reg,
         pat = new RegExp(reg_express),
         message = reg[prop].message;
