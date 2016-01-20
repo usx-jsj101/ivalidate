@@ -1,2 +1,2 @@
-	window.Ivalidate=ivalidate;
-})(window);
+	window.iv = ivalidate;
+	})(window);

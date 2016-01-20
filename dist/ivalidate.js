@@ -3,6 +3,10 @@
 
 var utils = utils || {};
 
+utils.byId=function(selector){
+	return document.getElementById(selector);
+}
+
 utils.addEvent = function(el, type, fn, capture) {
 
     el.addEventListener(type, fn, !!capture);
@@ -43,29 +47,65 @@ var reg = {
     }
 };
 
+var formElementReg = /select|input|textarea/i;
 
-var ivalidate = function(target) {
-    this.target = target;
+
+var ivalidate = function(selector) {
+
+    return new ivalidate.fn.init(selector);
 };
 
-ivalidate.prototype = {
+ivalidate.prototype = ivalidate.fn = {
 
-    init: function() {
-
+    init: function(selector) {
+        this.eleList = [];
+        this.target = utils.byId(selector);
         var list = this.target.querySelectorAll('[iv]');
         //addTargetId(list, this.target);
 
         for (var i = 0; i < list.length; i++) {
+            var node = list[i];
+            if (node.nodeName.match(formElementReg)) {
 
-        
-            (function(input, form) {
+                this.eleList.push(new formEmt(list[i]));
+            }
+        }
+    },
 
-                addValidateEvent(input, form);
+    setRegulare: function() {
+        //todo 设置验证规则
+    },
 
-            })(list[i], this.target)
-        };
+    validate: function() {
+        this.eleList.forEach(function(emt, index) {
+            console.log(emt.verification());
+        })
     }
 }
+
+ivalidate.fn.init.prototype = ivalidate.prototype;
+
+var formEmt = function(emt) {
+
+    this.emt = emt;
+    this.value = emt.value;
+    this.rule = emt.getAttribute("iv").split(" ");
+}
+
+formEmt.prototype = {
+
+    verification: function() {
+        var val = this.value;
+        return this.rule.every(function(item, index) {
+            var reg_express = reg[item].reg,
+                pat = new RegExp(reg_express),
+                message = reg[item].message;
+            return pat.test(val);
+        }, true)
+    }
+}
+
+
 
 function addTargetId(list, target) {
 
@@ -85,8 +125,6 @@ function addValidateEvent(ipt, form) {
 
     var validateItems = ipt.getAttribute("iv").split(" ");
 
-
-    console.log(ipt);
     utils.addEvent(ipt, "change", function() {
 
         console.log("change");
@@ -110,8 +148,8 @@ function checkInput(prop, ipt, form, attr) {
             message = attr;
         }
     }
-    utils.changeTip(form, prop, message);
+    //utils.changeTip(form, prop, message);
 }
 
-	window.Ivalidate=ivalidate;
-})(window);
+	window.iv = ivalidate;
+	})(window);

@@ -1,5 +1,9 @@
 var utils = utils || {};
 
+utils.byId=function(selector){
+	return document.getElementById(selector);
+}
+
 utils.addEvent = function(el, type, fn, capture) {
 
     el.addEventListener(type, fn, !!capture);

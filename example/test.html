@@ -6,14 +6,13 @@
 	<script type="text/javascript" src="../dist/ivalidate.js"></script>
 	<script>
 		window.onload=function(){
-			var iv=new Ivalidate(document.getElementById("form"));
-			iv.init();
+			iv("form").validate();
 		}
 	</script>
 </head>
 <body>
 	<form action="" id="form">
-		<input type="text" iv="mail require" id="mail" value="313592350qq.com"><span class="SDF" for='mail'>1233</span>
+		<input type="text" iv="mail require" id="mail" value="313592350#qq.com"><span class="SDF" for='mail'>1233</span>
 		<input type="text" iv="phone" id="phone" value="1367655807"><p class="SDF" for='phone'>123</p>
 	</form>
 </body>
