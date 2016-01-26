@@ -19,8 +19,7 @@ var reg = {
 
 var formElementReg = /select|input|textarea/i;
 
-
-var ivalidate = function(selector) {
+var ivalidate = function(selector,params) {
 
     return new ivalidate.fn.init(selector);
 };
@@ -30,13 +29,13 @@ ivalidate.prototype = ivalidate.fn = {
     init: function(selector) {
         this.eleList = [];
         this.target = utils.byId(selector);
+        this._onSubmit();
         var list = this.target.querySelectorAll('[iv]');
         //addTargetId(list, this.target);
 
         for (var i = 0; i < list.length; i++) {
             var node = list[i];
             if (node.nodeName.match(formElementReg)) {
-
                 this.eleList.push(new formEmt(list[i]));
             }
         }
@@ -46,7 +45,12 @@ ivalidate.prototype = ivalidate.fn = {
         //todo 设置验证规则
     },
 
-    validate: function() {
+    _onSubmit:function(){
+    	utils.addEvent(this.target,"submit",function(){
+    		this._validate();
+    	})
+    },
+    _validate: function() {
         this.eleList.forEach(function(emt, index) {
             console.log(emt.verification());
         })
@@ -72,6 +76,9 @@ formEmt.prototype = {
                 message = reg[item].message;
             return pat.test(val);
         }, true)
+    },
+    createTip:function(){
+
     }
 }
 
@@ -92,9 +99,7 @@ function addTargetId(list, target) {
 
 function addValidateEvent(ipt, form) {
 
-
     var validateItems = ipt.getAttribute("iv").split(" ");
-
     utils.addEvent(ipt, "change", function() {
 
         console.log("change");
@@ -103,8 +108,6 @@ function addValidateEvent(ipt, form) {
     })
 
 }
-
-
 
 function checkInput(prop, ipt, form, attr) {
 

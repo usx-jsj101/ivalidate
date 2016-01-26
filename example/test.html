@@ -1,19 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<title>test</title>
-	<script type="text/javascript" src="../dist/ivalidate.js"></script>
-	<script>
-		window.onload=function(){
-			iv("form").validate();
-		}
-	</script>
+    <meta charset="UTF-8">
+    <title>test</title>
+    <script type="text/javascript" src="../dist/ivalidate.js"></script>
+    <script>
+    window.onload = function() {
+        iv("form", {
+            submit: function() {
+
+            }
+        });
+    }
+    </script>
 </head>
+
 <body>
-	<form action="" id="form">
-		<input type="text" iv="mail require" id="mail" value="313592350#qq.com"><span class="SDF" for='mail'>1233</span>
-		<input type="text" iv="phone" id="phone" value="1367655807"><p class="SDF" for='phone'>123</p>
-	</form>
+    <form action="" id="form">
+        <input type="text" iv="mail require" id="mail" value="313592350@qq.com"><span class="SDF" for='mail'>1233</span>
+        <input type="text" iv="phone" id="phone" value="13676558072">
+        <p class="SDF" for='phone'>123</p>
+        <input type="submit">
+    </form>
 </body>
+
 </html>
