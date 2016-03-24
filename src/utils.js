@@ -4,6 +4,14 @@ utils.byId=function(selector){
 	return document.getElementById(selector);
 }
 
+utils.selector=function(selector){
+	return document.selector();
+}
+
+utils.selectorAll=function(selector){
+	return document.selectorAll();
+}
+
 utils.addEvent = function(el, type, fn, capture) {
 
     el.addEventListener(type, fn, !!capture);

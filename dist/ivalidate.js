@@ -7,6 +7,14 @@ utils.byId=function(selector){
 	return document.getElementById(selector);
 }
 
+utils.selector=function(selector){
+	return document.selector();
+}
+
+utils.selectorAll=function(selector){
+	return document.selectorAll();
+}
+
 utils.addEvent = function(el, type, fn, capture) {
 
     el.addEventListener(type, fn, !!capture);
@@ -47,56 +55,14 @@ var reg = {
     }
 };
 
-var formElementReg = /select|input|textarea/i;
-
-var ivalidate = function(selector,params) {
-
-    return new ivalidate.fn.init(selector);
-};
-
-ivalidate.prototype = ivalidate.fn = {
-
-    init: function(selector) {
-        this.eleList = [];
-        this.target = utils.byId(selector);
-        this._onSubmit();
-        var list = this.target.querySelectorAll('[iv]');
-        //addTargetId(list, this.target);
-
-        for (var i = 0; i < list.length; i++) {
-            var node = list[i];
-            if (node.nodeName.match(formElementReg)) {
-                this.eleList.push(new formEmt(list[i]));
-            }
-        }
-    },
-
-    setRegulare: function() {
-        //todo 设置验证规则
-    },
-
-    _onSubmit:function(){
-    	utils.addEvent(this.target,"submit",function(){
-    		this._validate();
-    	})
-    },
-    _validate: function() {
-        this.eleList.forEach(function(emt, index) {
-            console.log(emt.verification());
-        })
-    }
-}
-
-ivalidate.fn.init.prototype = ivalidate.prototype;
-
-var formEmt = function(emt) {
+function FormEmt(emt,rule) {
 
     this.emt = emt;
     this.value = emt.value;
-    this.rule = emt.getAttribute("iv").split(" ");
+    this.rule = rule.split(',');
 }
 
-formEmt.prototype = {
+FormEmt.prototype = {
 
     verification: function() {
         var val = this.value;
@@ -104,55 +70,79 @@ formEmt.prototype = {
             var reg_express = reg[item].reg,
                 pat = new RegExp(reg_express),
                 message = reg[item].message;
+            console.log(pat);
+            console.log(val);
+            console.log(pat.test(val));
             return pat.test(val);
         }, true)
     },
-    createTip:function(){
+    createTip: function() {
 
     }
 }
 
+var formElementReg = /select|input|textarea/i;
 
+var ivalidate = function(selector, params) {
 
-function addTargetId(list, target) {
+    return new ivalidate.fn.init(selector,params);
+};
 
-    for (var i = 0; i < list.length; i++) {
+ivalidate.prototype = ivalidate.fn = {
 
-        (function(input, form) {
+    init: function(name,cb) {
+        this.eles = [];
+        name=name ||"";
+        this.target = document.forms[name];
+        if(this.target){
+           var eles=this.target.elements;
+           for(var i=0;i<eles.length;i++){
 
-            utils.addTargetId(input, form);
-
-        })(list[i], target)
-
-    };
-}
-
-function addValidateEvent(ipt, form) {
-
-    var validateItems = ipt.getAttribute("iv").split(" ");
-    utils.addEvent(ipt, "change", function() {
-
-        console.log("change");
-        checkInput(validateItems[0], ipt, form, "");
-
-    })
-
-}
-
-function checkInput(prop, ipt, form, attr) {
-
-    var reg_express = reg[prop].reg,
-        pat = new RegExp(reg_express),
-        message = reg[prop].message;
-    if (pat.test(ipt.value)) {
-        message = "正确";
-    } else {
-        if (attr != "") {
-            message = attr;
+                var item=eles[i],iv=item.getAttribute("iv");
+                console.log(item);
+                if(item.name!=="" && iv){
+                     var fe=new FormEmt(item,iv);
+                     this.eles.push(fe);
+                }
+           } 
         }
+        this._onSubmit(cb);  
+    },
+
+    _setRegulare: function() {
+        //todo 设置验证规则
+    },
+
+    _onSubmit: function(cb) {
+        var that=this;
+        console.log(cb);
+        utils.addEvent(this.target, "submit", function(event) {
+            var res=that._validate();
+            if(cb && cb["submit"]){
+                cb["submit"].call(that,res);
+                event.preventDefault();
+            }else{
+                if(!res.result){
+                    alert("fail");
+                    event.preventDefault();
+                }
+            }
+
+        })
+    },
+    _validate: function() {
+        var res=this.eles.every(function(emt, ix) {
+            return emt.verification();
+        })
+        return {result:res};
     }
-    //utils.changeTip(form, prop, message);
 }
+
+ivalidate.fn.init.prototype = ivalidate.prototype;
+
+
+
+
 
 	window.iv = ivalidate;
 	})(window);

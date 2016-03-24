@@ -8,9 +8,10 @@
     <script>
     window.onload = function() {
         iv("form", {
-            submit: function() {
-
+            submit: function(data) {
+                console.log(data);
             }
+
         });
     }
     </script>
@@ -18,8 +19,8 @@
 
 <body>
     <form action="" id="form">
-        <input type="text" iv="mail require" id="mail" value="313592350@qq.com"><span class="SDF" for='mail'>1233</span>
-        <input type="text" iv="phone" id="phone" value="13676558072">
+        <input type="text" iv="mail,require" name="mail" id="mail" value="313592350@qq.com"><span class="SDF" for='mail'>1233</span>
+        <input type="text" iv="phone" id="phone" name="phone" value="13676558072">
         <p class="SDF" for='phone'>123</p>
         <input type="submit">
     </form>

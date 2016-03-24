@@ -1,6 +1,7 @@
 var gulp = require('gulp'),
     concat = require('gulp-concat'),
     jshint = require('gulp-jshint'),
+    connect=require('gulp-connect'),
     path = {
         root: './',
         source: {
@@ -19,11 +20,20 @@ var gulp = require('gulp'),
         jsfiles: ['./src/open.js', './src/utils.js', './src/core.js', './src/close.js']
     };
 
+gulp.task('connect',function(){
+   connect.server({
+    root: '',
+    port: 4001,
+    livereload: true
+  }); 
+})
+
 gulp.task('scripts', function() {
     return gulp.src(iv.jsfiles)
         .pipe(concat(iv.filename + ".js"))
         .pipe(jshint())
-        .pipe(gulp.dest(path.dist.root));
+        .pipe(gulp.dest(path.dist.root))
+        .pipe(connect.reload());
 });
 
 gulp.task('watch', function() {
@@ -31,4 +41,4 @@ gulp.task('watch', function() {
 });
 
 
-gulp.task('default', ["scripts", 'watch']);
+gulp.task('default', ['connect',"scripts", 'watch']);
