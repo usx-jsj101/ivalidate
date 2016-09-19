@@ -1,2 +1,0 @@
-	window.iv = ivalidate;
-	})(window);

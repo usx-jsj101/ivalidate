@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <title>example</title>
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <script src="src/core.js"></script>
+    <script>
+    $(function() {
+
+        try {
+            var iva = ivalidate("#testForm", {
+
+            });
+
+            iva.auto();
+
+            $("#testForm2").submit(function() {
+                var iva = ivalidate($this, {});
+                if (iva.exec()) {
+
+                } else {
+
+                }
+            })
+        } catch (e) {
+            console.log(e);
+        }
+
+
+    })
+    </script>
+</head>
+
+<body>
+    <form action="" id="testForm">
+        <input type="text">
+        <input type="text">
+        <input type="text">
+        <textarea name="" id="content" cols="30" rows="10"></textarea>
+        <select name="" id="country">
+            <option value=""></option>
+            <option value="0">value0</option>
+            <option value="1">value1</option>
+            <option value="2">value2</option>
+        </select>
+        <input type="radio">
+        <input name="" type="checkbox">
+        <input type="checkbox">
+    </form>
+    <form action="" id="testForm2">
+        <input type="text">
+        <input type="text">
+        <input type="text">
+        <textarea name="" id="content" cols="30" rows="10"></textarea>
+        <select name="" id="country">
+            <option value=""></option>
+            <option value="0">value0</option>
+            <option value="1">value1</option>
+            <option value="2">value2</option>
+        </select>
+        <input type="radio">
+        <input name="" type="checkbox">
+        <input type="checkbox">
+    </form>
+</body>
+
+</html>
