@@ -4,32 +4,9 @@
 
 <head>
     <title>example</title>
-    <script src="node_modules/jquery/dist/jquery.js"></script>
-    <script src="src/core.js"></script>
+    <script src="dist/ivalidate.js"></script>
     <script>
-    $(function() {
-
-        try {
-            var iva = ivalidate("#testForm", {
-
-            });
-
-            iva.auto();
-
-            $("#testForm2").submit(function() {
-                var iva = ivalidate($this, {});
-                if (iva.exec()) {
-
-                } else {
-
-                }
-            })
-        } catch (e) {
-            console.log(e);
-        }
-
-
-    })
+        var iv = new IValidate();
     </script>
 </head>
 

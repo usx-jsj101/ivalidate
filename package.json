@@ -4,18 +4,23 @@
   "description": "form validate",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rimraf dist && webpack --progress --hide-modules"
   },
   "keywords": [
     "form",
     "validate"
   ],
   "devDependencies": {
-    "gulp": "^3.9.0",
-    "gulp-concat": "^2.6.0",
-    "gulp-jshint": "^1.11.2",
-    "jquery": "^3.1.0",
-    "require": "^2.4.20"
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.0.0",
+    "babel-plugin-transform-flow-comments": "^6.22.0",
+    "babel-preset-env": "^1.5.2",
+    "babel-preset-flow": "^6.23.0",
+    "flow-bin": "^0.51.0",
+    "flow-webpack-plugin": "^0.3.6",
+    "rimraf": "^2.6.1",
+    "webpack": "^3.4.1"
   },
   "author": "wuhuihao,chenshuang",
   "license": "ISC"
