@@ -6,7 +6,10 @@
     <title>example</title>
     <script src="dist/ivalidate.js"></script>
     <script>
-        var iv = new IValidate();
+        var iv = new IValidate("testForm");
+        var data = iv.collect()
+        var res = iv.validate()
+
     </script>
 </head>
 

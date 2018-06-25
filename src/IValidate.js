@@ -10,6 +10,14 @@ class IValidate{
         return validate(this.data)
     }
 
+    collect(){
+
+    }
+
+    validate(){
+        
+    }
+
     static exec(option){
         return validate(option);
     }
