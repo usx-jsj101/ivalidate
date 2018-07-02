@@ -17,10 +17,10 @@
     "babel-plugin-transform-flow-comments": "^6.22.0",
     "babel-preset-env": "^1.5.2",
     "babel-preset-flow": "^6.23.0",
-    "flow-bin": "^0.51.0",
-    "flow-webpack-plugin": "^0.3.6",
+    "flow-bin": "^0.75.0",
+    "flow-webpack-plugin": "^1.2.0",
     "rimraf": "^2.6.1",
-    "webpack": "^3.4.1"
+    "webpack": "^4.14.0"
   },
   "author": "wuhuihao,chenshuang",
   "license": "ISC"

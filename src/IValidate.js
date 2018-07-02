@@ -1,6 +1,6 @@
 import {prepare} from "./prepare.js"
 import {validate} from "./validate.js"
-class IValidate{
+export default class IValidate{
     constructor(option){
         
         this.data = prepare(option)

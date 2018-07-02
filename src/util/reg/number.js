@@ -1,3 +1,5 @@
-export function integer(value){
-     return /\d+/.test(value);
+export default {
+    integer(value) {
+        return /\d+/.test(value);
+   }
 }

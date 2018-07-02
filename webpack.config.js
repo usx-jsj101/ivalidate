@@ -1,11 +1,11 @@
  var path = require("path")
- var flowWebpackPlugin = require('flow-webpack-plugin');
 
  module.exports = {
-     entry: './src/IValidate.js',
+     entry: './src/index.js',
      output: {
          path: path.join(__dirname, './dist'),
-         filename: 'ivalidate.js'
+         filename: 'ivalidate.js',
+		 libraryTarget: 'umd', // Or 'var' by default
      },
      module: {
         rules: [
@@ -16,6 +16,5 @@
             }]
      },
      plugins: [
-         new flowWebpackPlugin()
      ]
  };
