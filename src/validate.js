@@ -1,9 +1,14 @@
 import {test} from './util/reg'
 
-export function validate(){
+export function validate(rules, data){
     var result = {}
 
-    console.log(test("integer"));
-
+	if(data instanceof Object === true) {
+		validateFromObject(rules, data)
+	}
     return result;
+}
+function validateFromObject(rules, data) {
+	rules.forEach(rule => {
+	})
 }
